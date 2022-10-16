@@ -83,7 +83,7 @@ class ClientController extends Controller
 4. Be happy :>
 
 
-## Middlwares
+## Middlewares
 
 A middleware in this context means a step in which the query will be processed. See all the middlewares in folder src/middleware.
 
