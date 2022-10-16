@@ -2,6 +2,10 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.0.1 - 2022-10-16
+
+Irrelevant UPDATES.
+
 ## v1.0.0 - 2022-10-16
 
 Primeira versão oficial.
@@ -13,7 +17,9 @@ Release of the first version of the package.
 ## v1.0.0 - 2022-10-16
 
 New:
+
 - Added BetweenDatesQuery filter
 
 Fix:
+
 - Removed all calls of env function
