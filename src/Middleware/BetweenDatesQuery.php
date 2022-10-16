@@ -3,7 +3,6 @@
 namespace Crazynds\QueryPipeline\Middleware;
 
 use Carbon\Carbon;
-use Crazynds\QueryPipeline\Middleware\QueryMiddleware;
 use Illuminate\Support\Arr;
 
 class BetweenDatesQuery extends QueryMiddleware
@@ -38,13 +37,13 @@ class BetweenDatesQuery extends QueryMiddleware
                     $minB = 'min_'.$arr[0];
                     $maxB = 'max_'.$arr[1];
                 }
-                if (! Arr::has($data,$minB)) {
+                if (! Arr::has($data, $minB)) {
                     continue;
                 }
 
                 try {
                     $minB = Carbon::parse($data[$minB])->toIso8601String();
-                    $maxB = Arr::get($data,$maxB,null);
+                    $maxB = Arr::get($data, $maxB, null);
                     if (isset($maxB)) {
                         $maxB = Carbon::parse($maxB)->toIso8601String();
                     }
