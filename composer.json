@@ -1,30 +1,31 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "crazynds/query-pipeline",
+    "description": "A query pipeline for use with custom search in Laravel project.",
     "keywords": [
-        ":vendor_name",
+        "crazynds",
         "laravel",
-        ":package_slug"
+        "query-pipeline"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/crazynds/QueryPipeline-Laravel",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "crazynds",
+            "email": "lhlago@inf.ufsm.br",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.13.0",
-        "illuminate/contracts": "^9.0"
+        "illuminate/contracts": "^9.0",
+        "laravel/framework": "9.*",
+        "orchestra/testbench": "7.*",
+        "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^6.0",
         "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^7.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
         "phpstan/extension-installer": "^1.1",
@@ -35,37 +36,33 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Crazynds\\QueryPipeline\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Crazynds\\QueryPipeline\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"
     },
     "config": {
-        "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
+            "pestphp/pest": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
+                "Crazynds\\QueryPipeline\\QueryPipelineServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

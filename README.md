@@ -1,69 +1,143 @@
-# :package_description
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+# Query Pipeline Description
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/crazynds/query-pipeline.svg?style=flat-square)](https://packagist.org/packages/crazynds/query-pipeline)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/crazynds/QueryPipeline-Laravel/run-tests?label=tests)](https://github.com/crazynds/QueryPipeline-Laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/crazynds/QueryPipeline-Laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/crazynds/QueryPipeline-Laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/crazynds/query-pipeline.svg?style=flat-square)](https://packagist.org/packages/crazynds/query-pipeline)
 
-## Support us
+This package contains a collection of class that can be used with Laravel Pipeline.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+Can do the same as the package [pipeline-query-collection](https://github.com/l3aro/pipeline-query-collection) however the syntax differs, and gives the user a little more possibilities.
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+Allows you to implement conditionals for joins and add where clauses if certain data was passed.
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
+composer require crazynds/query-pipeline
 ```
 
 ## Usage
 
-```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+ See the example below:
+``` php
+use Crazynds\QueryPipeline\Middleware\ILIKEQuery;
+use Crazynds\QueryPipeline\Middleware\JoinQuery;
+use Crazynds\QueryPipeline\QueryPipeline;
+
+class ClientController extends Controller
+{
+    use QueryPipeline;
+
+    public function index(Request $request){
+        $page = $request->input('page', 1);
+        $qtd = $request->input('qtd', 20);
+        $query = Client::query();
+        $data = $request->all();
+        $query = $this->runPipeline($query,$data,[
+            JoinQuery::class => [
+                //table to join
+                'addresses' => [
+                    'on' => [ // required
+                        'clients.address_id',
+                        '=',
+                        'addresses.id',
+                    ],
+                    'checkParameters'=>[ // optional, if any items from this array exist in the data keys, the join will be added to the query
+                        // if not passed checkParameters, the join will be added in any condition
+                        'country',
+                        'state',
+                        'city',
+                    ],
+                ]
+            ],
+            ILIKEQuery::class => [
+                //table name
+                'clients'=>[
+                    //columns
+                    'name',
+                    'code',
+                    'email',
+                ],
+                'addresses'=>[
+                    'country',
+                    'state',
+                    'city',
+                ]
+            ],
+        ]);
+        return $query->paginate($qtd);
+    }
+}
 ```
+
+### Steps
+
+1. First add the trait QueryPipeline from Crazynds\QueryPipeline\QueryPipeline to your class.
+2. Setup your middleware stack variable
+3. Send the base query, your data values and your stack to $this->runPipeline and the query pipeline will run.
+4. Be happy :>
+
+
+## Middlwares
+
+A middleware in this context means a step in which the query will be processed. See all the middlewares in folder src/middleware.
+
+Each middleware has your stack of parameters, see below the specifications:
+
+### Join Query
+
+The join query middleware add a join query based on conditions passed as parameters. Each join query can include multiples joins.
+
+The base object recived by each iten in array is represented below:
+```php
+<?php
+
+$middlewareStack = [
+    JoinQuery::class => [
+        //table to join
+        'table' => [
+            'on' => [ // required
+                'table.foreign_id',
+                '=',
+                'othertable.id',
+            ],
+            'checkParameters'=>[ 
+            ],
+        ]
+    ]
+];
+```
+
+The _on_ array is limited to only simple verification, without multiple wheres. Because of this, the array recive only 3 parameter, the left column, the comparator, and the right column.
+
+The _checkParameters_ array, if not defined, the join will be added to query every time. If defined, the join will only be added to array if any of the string in the array is a key of array data;
+
+
+### ILIKE Query
+
+The ilike query middleware add a where in the query with a comparation of type _LIKE_ no case sensitive. The query add automatically the % in the start and end the string in the value.
+
+The base object recived by each iten in array is represented below:
+```php
+<?php
+
+$middlewareStack = [
+    ILIKEQuery::class => [
+        //table name
+        'clients'=>[
+            'name', // this iten will check clients.name ilike %.$data['name'].%
+            'code' => 'ssn', // this iten will check clients.name ilike %.$data['ssn'].%
+            'email',
+        ],
+    ],
+];
+```
+
 
 ## Testing
 
@@ -75,18 +149,9 @@ composer test
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
+- [Crazynds](https://github.com/crazynds)
 
 ## License
 
