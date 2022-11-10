@@ -6,7 +6,8 @@ class JoinQuery extends QueryMiddleware
 {
     protected function apply($query, array $data, $config)
     {
-        foreach ($config as $tableName => $join) {
+        foreach ($config as $name => $join) {
+            $tablename = $this->getTableName($name);
             if (! isset($join['on'])) {
                 continue;
             }
@@ -26,7 +27,7 @@ class JoinQuery extends QueryMiddleware
             if (isset($checkParameters) || isset($checkNumeric)) {
                 if (isset($checkParameters) && count(array_intersect($data, $checkParameters)) != 0) {
                     // check parameter were passed and found in data
-                    $query->join($tableName, $conditionA, $comparator, $conditionB);
+                    $query->join($tablename, $conditionA, $comparator, $conditionB);
                 } elseif (isset($checkNumeric) && gettype($checkNumeric) == 'array') {
                     // check number were passed and the type of checknumber is array
                     $numberColumns = [];
@@ -56,12 +57,12 @@ class JoinQuery extends QueryMiddleware
                     }
                     if (count(array_intersect($data, $numberColumns)) != 0) {
                         // find all combination and check any of then
-                        $query->join($tableName, $conditionA, $comparator, $conditionB);
+                        $query->join($tablename, $conditionA, $comparator, $conditionB);
                     }
                 }
             } else {
                 // No check were passed, just add the join
-                $query->join($tableName, $conditionA, $comparator, $conditionB);
+                $query->join($tablename, $conditionA, $comparator, $conditionB);
             }
         }
     }

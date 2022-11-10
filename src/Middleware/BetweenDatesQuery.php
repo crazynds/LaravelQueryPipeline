@@ -10,7 +10,8 @@ class BetweenDatesQuery extends QueryMiddleware
     public function apply($query, array $data, $params)
     {
         $or = ($data['or'] ?? false) ? true : false;
-        foreach ($params as $tablename => $pairs) {
+        foreach ($params as $name => $pairs) {
+            $tablename = $this->getTableName($name);
             foreach ($pairs as $key => $pair) {
                 if (gettype($key) == 'string') {
                     $arr = explode('|', $key);

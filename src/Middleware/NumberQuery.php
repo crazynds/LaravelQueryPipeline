@@ -7,7 +7,8 @@ class NumberQuery extends QueryMiddleware
     protected function apply($query, array $data, $params)
     {
         $or = ($data['or'] ?? false) ? true : false;
-        foreach ($params as $tablename => $columns) {
+        foreach ($params as $name => $columns) {
+            $tablename = $this->getTableName($name);
             foreach ($columns as $column => $comparations) {
                 if (gettype($comparations) != 'array') {
                     $column = $comparations;

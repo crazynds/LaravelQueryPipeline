@@ -10,7 +10,8 @@ class ILIKEQuery extends QueryMiddleware
     {
         $or = ($data['or'] ?? false) ? true : false;
 
-        foreach ($config as $tablename => $columns) {
+        foreach ($config as $name => $columns) {
+            $tablename = $this->getTableName($name);
             $columnsData = array_map(function ($key, $val) {
                 return $val;
             }, array_keys($columns), $columns);
