@@ -3,8 +3,8 @@
 namespace Crazynds\QueryPipeline\Middleware;
 
 use Closure;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 abstract class QueryMiddleware
 {
@@ -43,10 +43,12 @@ abstract class QueryMiddleware
         return $newParams;
     }
 
-    protected function getTableName($name){
-        if(is_subclass_of($name,Model::class)){
+    protected function getTableName($name)
+    {
+        if (is_subclass_of($name, Model::class)) {
             return (new $name())->getTable();
-        }else
+        } else {
             return $name;
+        }
     }
 }
