@@ -5,6 +5,7 @@ namespace Crazynds\QueryPipeline\Middleware;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Throwable;
 
 abstract class QueryMiddleware
 {
@@ -34,9 +35,17 @@ abstract class QueryMiddleware
         foreach ($params as $param) {
             $exploded = explode(':', $param, 2);
             if (count($exploded) == 2) {
-                $newParams[$exploded[0]] = unserialize(preg_replace($patterns, $replacement, $exploded[1]));
+                try{
+                    $newParams[$exploded[0]] = unserialize(preg_replace($patterns, $replacement, $exploded[1]));
+                }catch(Throwable $t){
+                    $newParams[$exploded[0]] = $exploded[1];
+                }
             } else {
-                $newParams[] = unserialize(preg_replace($patterns, $replacement, $param));
+                try{
+                    $newParams[] = unserialize(preg_replace($patterns, $replacement, $param));
+                }catch(Throwable $t){
+                    $newParams[] = $param;
+                }
             }
         }
 

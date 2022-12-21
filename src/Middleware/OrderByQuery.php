@@ -11,6 +11,7 @@ class OrderByQuery extends QueryMiddleware
         if (isset($data['sortBy'])) {
             $column = $data['sortBy'];
             foreach ($params as $name => $columns) {
+                if($name == 'default') continue;
                 $tablename = $this->getTableName($name);
                 if (in_array($column, $columns)) {
                     $query->orderBy($tablename.'.'.$column, $desc);
