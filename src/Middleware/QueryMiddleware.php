@@ -35,15 +35,15 @@ abstract class QueryMiddleware
         foreach ($params as $param) {
             $exploded = explode(':', $param, 2);
             if (count($exploded) == 2) {
-                try{
+                try {
                     $newParams[$exploded[0]] = unserialize(preg_replace($patterns, $replacement, $exploded[1]));
-                }catch(Throwable $t){
+                } catch(Throwable $t) {
                     $newParams[$exploded[0]] = $exploded[1];
                 }
             } else {
-                try{
+                try {
                     $newParams[] = unserialize(preg_replace($patterns, $replacement, $param));
-                }catch(Throwable $t){
+                } catch(Throwable $t) {
                     $newParams[] = $param;
                 }
             }
