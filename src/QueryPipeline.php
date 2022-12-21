@@ -51,9 +51,9 @@ trait QueryPipeline
                 ->then(function () use ($query) {
                     return $query;
                 });
+
             return $query;
         });
-        
 
         return $query;
     }
