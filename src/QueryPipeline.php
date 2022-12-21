@@ -44,17 +44,16 @@ trait QueryPipeline
     public function runPipeline(Builder $query, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
-        $table = $query->from;
-        $query->whereIn($table.'.id', function ($query) use ($data, $newStack, $table) {
-            $query->select($table.'.id')->from($table);
-
-            return app(Pipeline::class)
+        $query->where(function ($query) use ($data, $newStack) {
+            $query = app(Pipeline::class)
                 ->send($data)
                 ->through(array_reverse($newStack))
                 ->then(function () use ($query) {
                     return $query;
                 });
+            return $query;
         });
+        
 
         return $query;
     }
