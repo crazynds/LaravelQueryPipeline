@@ -2,6 +2,10 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.0.4 - 2022-12-21
+
+Solved bugs introduced in version 1.0.3
+
 ## v1.0.3 - 2022-12-21
 
 Created OrderByQuery for use order by if the parameter 'sortBy' is in array $data.
@@ -23,6 +27,7 @@ $query = $this->runPipeline($query, $data, [
 ]);
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -41,6 +46,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 ```
