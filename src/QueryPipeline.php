@@ -44,7 +44,6 @@ trait QueryPipeline
     public function runPipeline(Builder $query, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
-<<<<<<< HEAD
         $query = app(Pipeline::class)
             ->send($data)
             ->through(array_reverse($newStack))
@@ -69,22 +68,6 @@ trait QueryPipeline
                 }
             }
         });
-
-        //dd($query->toSql());
-        //dd($query->getQuery()->wheres,$query->getQuery()->bindings);
-=======
-        $query->where(function ($query) use ($data, $newStack) {
-            $query = app(Pipeline::class)
-                ->send($data)
-                ->through(array_reverse($newStack))
-                ->then(function () use ($query) {
-                    return $query;
-                });
-
-            return $query;
-        });
->>>>>>> c92874ad3043e715b13d6f9e249b300d2c1719b6
-
         return $query;
     }
 }
