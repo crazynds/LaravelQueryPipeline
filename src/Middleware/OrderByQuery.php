@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Modules\Client;
+namespace Crazynds\QueryPipeline\Middleware;
 
 use Crazynds\QueryPipeline\Middleware\QueryMiddleware;
-use Illuminate\Database\Query\Builder;
 
 class OrderByQuery extends QueryMiddleware
 {
-    protected function apply(Builder $query, array $data, $params)
+    protected function apply($query, array $data, $params)
     {
         $def = true;
-        if(!isset($data['sortBy'])){
+        if(isset($data['sortBy'])){
             $desc = ($data['sortDesc'] ?? false) ? 'desc' : 'asc';
             $column = $data['sortBy'];
             foreach ($params as $name => $columns) {
@@ -21,7 +20,7 @@ class OrderByQuery extends QueryMiddleware
                 }
             }
         }
-        if($def && isset($data['default'])){
+        if($def && isset($params['default'])){
             $query->orderBy($data['default']);
         }
     }

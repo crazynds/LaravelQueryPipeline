@@ -44,16 +44,33 @@ trait QueryPipeline
     public function runPipeline(Builder $query, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
-        $query->where(function ($query) use ($data, $newStack) {
-            $query = app(Pipeline::class)
-                ->send($data)
-                ->through(array_reverse($newStack))
-                ->then(function () use ($query) {
-                    return $query;
-                });
-            return $query;
-        });
+        $query = app(Pipeline::class)
+            ->send($data)
+            ->through(array_reverse($newStack))
+            ->then(function () use ($query) {
+                return $query;
+            });
         
+        $wheres = $query->getQuery()->wheres;
+        $query->getQuery()->wheres = [];
+        $query->getQuery()->bindings['where'] = [];
+        $query->where(function ($query) use ($wheres){
+            foreach($wheres as $where){
+                if($where['boolean'] == 'or'){
+                    $query->where($where['column'],$where['operator'],$where['value'],$where['boolean']);
+                }
+            }
+        });
+        $query->where(function ($query) use ($wheres){
+            foreach($wheres as $where){
+                if($where['boolean'] == 'and'){
+                    $query->where($where['column'],$where['operator'],$where['value'],$where['boolean']);
+                }
+            }
+        });
+
+        //dd($query->toSql());
+        //dd($query->getQuery()->wheres,$query->getQuery()->bindings);
 
         return $query;
     }

@@ -25,7 +25,7 @@ class JoinQuery extends QueryMiddleware
             //join if:
 
             if (isset($checkParameters) || isset($checkNumeric)) {
-                if (isset($checkParameters) && count(array_intersect($data, $checkParameters)) != 0) {
+                if (isset($checkParameters) && count(array_intersect(array_keys($data), $checkParameters)) != 0) {
                     // check parameter were passed and found in data
                     $query->join($tablename, $conditionA, $comparator, $conditionB);
                 } elseif (isset($checkNumeric) && gettype($checkNumeric) == 'array') {
@@ -55,7 +55,7 @@ class JoinQuery extends QueryMiddleware
                             }
                         }
                     }
-                    if (count(array_intersect($data, $numberColumns)) != 0) {
+                    if (count(array_intersect(array_keys($data), $numberColumns)) != 0) {
                         // find all combination and check any of then
                         $query->join($tablename, $conditionA, $comparator, $conditionB);
                     }
