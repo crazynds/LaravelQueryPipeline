@@ -50,24 +50,25 @@ trait QueryPipeline
             ->then(function () use ($query) {
                 return $query;
             });
-        
+
         $wheres = $query->getQuery()->wheres;
         $query->getQuery()->wheres = [];
         $query->getQuery()->bindings['where'] = [];
-        $query->where(function ($query) use ($wheres){
-            foreach($wheres as $where){
-                if($where['boolean'] == 'or'){
-                    $query->where($where['column'],$where['operator'],$where['value'],$where['boolean']);
+        $query->where(function ($query) use ($wheres) {
+            foreach ($wheres as $where) {
+                if ($where['boolean'] == 'or') {
+                    $query->where($where['column'], $where['operator'], $where['value'], $where['boolean']);
                 }
             }
         });
-        $query->where(function ($query) use ($wheres){
-            foreach($wheres as $where){
-                if($where['boolean'] == 'and'){
-                    $query->where($where['column'],$where['operator'],$where['value'],$where['boolean']);
+        $query->where(function ($query) use ($wheres) {
+            foreach ($wheres as $where) {
+                if ($where['boolean'] == 'and') {
+                    $query->where($where['column'], $where['operator'], $where['value'], $where['boolean']);
                 }
             }
         });
+
         return $query;
     }
 }

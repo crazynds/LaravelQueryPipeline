@@ -2,14 +2,12 @@
 
 namespace Crazynds\QueryPipeline\Middleware;
 
-use Crazynds\QueryPipeline\Middleware\QueryMiddleware;
-
 class OrderByQuery extends QueryMiddleware
 {
     protected function apply($query, array $data, $params)
     {
         $def = true;
-        if(isset($data['sortBy'])){
+        if (isset($data['sortBy'])) {
             $desc = ($data['sortDesc'] ?? false) ? 'desc' : 'asc';
             $column = $data['sortBy'];
             foreach ($params as $name => $columns) {
@@ -20,7 +18,7 @@ class OrderByQuery extends QueryMiddleware
                 }
             }
         }
-        if($def && isset($params['default'])){
+        if ($def && isset($params['default'])) {
             $query->orderBy($params['default']);
         }
     }
