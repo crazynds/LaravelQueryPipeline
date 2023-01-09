@@ -56,15 +56,29 @@ trait QueryPipeline
         $query->getQuery()->bindings['where'] = [];
         $query->where(function ($query) use ($wheres) {
             foreach ($wheres as $where) {
-                if ($where['boolean'] == 'or') {
-                    $query->where($where['column'], $where['operator'], $where['value'], $where['boolean']);
+                $boolean = 'or';
+                if ($where['boolean'] == $boolean) {
+                    if ($where['type'] == 'Exists') {
+                        $query->addWhereExistsQuery($where['query'],$boolean,$where['not'] ?? false);
+                    }else if ($where['type'] == 'Nested') {
+                        $query->addNestedWhereQuery($where['query'],$boolean);
+                    }else{
+                        $query->where($where['column'], $where['operator'], $where['value'], $boolean);
+                    }
                 }
             }
         });
         $query->where(function ($query) use ($wheres) {
             foreach ($wheres as $where) {
-                if ($where['boolean'] == 'and') {
-                    $query->where($where['column'], $where['operator'], $where['value'], $where['boolean']);
+                $boolean = 'and';
+                if ($where['boolean'] == $boolean) {
+                    if ($where['type'] == 'Exists') {
+                        $query->addWhereExistsQuery($where['query'],$boolean,$where['not'] ?? false);
+                    }else if ($where['type'] == 'Nested') {
+                        $query->addNestedWhereQuery($where['query'],$boolean);
+                    }else{
+                        $query->where($where['column'], $where['operator'], $where['value'], $boolean);
+                    }
                 }
             }
         });
