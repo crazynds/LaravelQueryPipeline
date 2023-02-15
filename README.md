@@ -2,8 +2,6 @@
 # Query Pipeline Description
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/crazynds/query-pipeline.svg?style=flat-square)](https://packagist.org/packages/crazynds/query-pipeline)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/crazynds/QueryPipeline-Laravel/run-tests?label=tests)](https://github.com/crazynds/QueryPipeline-Laravel/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/crazynds/QueryPipeline-Laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/crazynds/QueryPipeline-Laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/crazynds/query-pipeline.svg?style=flat-square)](https://packagist.org/packages/crazynds/query-pipeline)
 
 This package contains a collection of class that can be used with Laravel Pipeline.
