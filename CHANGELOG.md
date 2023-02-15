@@ -2,6 +2,14 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Atualização laravel 10 - 2023-02-15
+
+### What's Changed
+
+- build(deps): bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/3
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.5...v1.0.6
+
 ## Suport laravel 10 - 2023-02-15
 
 **Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.7...v1.0.8
@@ -48,6 +56,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -66,6 +75,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
