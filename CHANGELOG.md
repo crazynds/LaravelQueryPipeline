@@ -2,6 +2,10 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Suporte laravel 10 - 2023-02-15
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.6...v1.0.7
+
 ## v1.0.6 - 2023-02-15
 
 Add support for laravel 10
@@ -38,6 +42,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -56,6 +61,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
