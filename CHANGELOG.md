@@ -2,6 +2,10 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Bug fix - 2023-03-07
+
+Where in and Where not in is working as intentded.
+
 ## Atualização laravel 10 - 2023-02-15
 
 ### What's Changed
@@ -57,6 +61,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -75,6 +80,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
