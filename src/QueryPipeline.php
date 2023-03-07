@@ -62,6 +62,8 @@ trait QueryPipeline
                         $query->addWhereExistsQuery($where['query'], $boolean, $where['not'] ?? false);
                     } elseif ($where['type'] == 'Nested') {
                         $query->addNestedWhereQuery($where['query'], $boolean);
+                    } elseif ($where['type'] == 'In' || $where['type'] == 'NotIn'){
+                        $query->whereIn($where['column'],$where['values'],$boolean,$where['type']=='NotIn');
                     } else {
                         $query->where($where['column'], $where['operator'], $where['value'], $boolean);
                     }
@@ -76,6 +78,8 @@ trait QueryPipeline
                         $query->addWhereExistsQuery($where['query'], $boolean, $where['not'] ?? false);
                     } elseif ($where['type'] == 'Nested') {
                         $query->addNestedWhereQuery($where['query'], $boolean);
+                    } elseif ($where['type'] == 'In' || $where['type'] == 'NotIn'){
+                        $query->whereIn($where['column'],$where['values'],$boolean,$where['type']=='NotIn');
                     } else {
                         $query->where($where['column'], $where['operator'], $where['value'], $boolean);
                     }
