@@ -61,11 +61,11 @@ class BetweenDatesQuery extends QueryMiddleware
                         $query->where(function ($query) use ($minA, $maxA, $minB, $maxB) {
                             $query->where(function ($query) use ($minA, $maxA, $minB, $maxB) {
                                 $query->whereBetween($minA, [$minB, $maxB])
-                                        ->orWhereBetween($maxA, [$minB, $maxB]);
+                                    ->orWhereBetween($maxA, [$minB, $maxB]);
                             })->whereNotNull($maxA);
                         })->orWhere(function ($query) use ($minA, $maxA, $maxB) {
                             $query->whereNull($maxA)
-                                    ->where($minA, '<=', $maxB);
+                                ->where($minA, '<=', $maxB);
                         });
                     }
                 };

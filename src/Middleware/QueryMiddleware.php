@@ -37,13 +37,13 @@ abstract class QueryMiddleware
             if (count($exploded) == 2) {
                 try {
                     $newParams[$exploded[0]] = unserialize(preg_replace($patterns, $replacement, $exploded[1]));
-                } catch(Throwable $t) {
+                } catch (Throwable $t) {
                     $newParams[$exploded[0]] = $exploded[1];
                 }
             } else {
                 try {
                     $newParams[] = unserialize(preg_replace($patterns, $replacement, $param));
-                } catch(Throwable $t) {
+                } catch (Throwable $t) {
                     $newParams[] = $param;
                 }
             }
