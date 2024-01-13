@@ -2,6 +2,10 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Bug Fix - 2024-01-13
+
+Fixed a bug when you use `whereIn` and a clousure in value, the bindings are deleted.
+
 ## Bug fix - 2023-03-07
 
 Where in and Where not in is working as intentded.
@@ -62,6 +66,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -80,6 +85,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
