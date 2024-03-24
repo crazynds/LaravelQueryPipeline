@@ -44,7 +44,7 @@ trait QueryPipeline
     public function runPipeline(Builder $oringinalQuery, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
-        $oringinalQuery->where(function ($query) use ($data, $newStack,$oringinalQuery) {
+        $oringinalQuery->where(function ($query) use ($data, $newStack, $oringinalQuery) {
             $query = app(Pipeline::class)
                 ->send($data)
                 ->through(array_reverse($newStack))
