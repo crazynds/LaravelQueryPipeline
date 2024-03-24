@@ -41,11 +41,10 @@ trait QueryPipeline
         return $newStack;
     }
 
-    public function runPipeline(Builder $query, array $data, array $stackMiddleware)
+    public function runPipeline(Builder $oringinalQuery, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
-
-        $query->where(function ($query) use ($data, $newStack) {
+        $oringinalQuery->where(function ($query) use ($data, $newStack,$oringinalQuery) {
             $query = app(Pipeline::class)
                 ->send($data)
                 ->through(array_reverse($newStack))
@@ -87,8 +86,11 @@ trait QueryPipeline
                     }
                 }
             });
+
+            $oringinalQuery->getQuery()->bindings['order'] = $query->getQuery()->bindings['order'];
+            $oringinalQuery->getQuery()->orders = $query->getQuery()->orders;
         });
 
-        return $query;
+        return $oringinalQuery;
     }
 }
