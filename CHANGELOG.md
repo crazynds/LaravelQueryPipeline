@@ -2,6 +2,14 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Fix order by - 2024-03-24
+
+### What's Changed
+
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/11
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.8...v1.0.9
+
 ## Bug Fix - 2024-01-13
 
 Fixed a bug when you use `whereIn` and a clousure in value, the bindings are deleted.
@@ -67,6 +75,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -85,6 +94,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
