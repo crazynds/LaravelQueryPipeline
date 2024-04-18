@@ -2,6 +2,14 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## Fix queryRay - 2024-04-18
+
+### What's Changed
+
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/13
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.9...1.0.10
+
 ## Fix order by - 2024-03-24
 
 ### What's Changed
@@ -76,6 +84,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -94,6 +103,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
