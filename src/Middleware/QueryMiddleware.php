@@ -55,7 +55,7 @@ abstract class QueryMiddleware
     protected function getTableName($name)
     {
         if (is_subclass_of($name, Model::class)) {
-            return (new $name())->getTable();
+            return (new $name)->getTable();
         } else {
             return $name;
         }
