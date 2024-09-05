@@ -3,6 +3,7 @@
 namespace Crazynds\QueryPipeline;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as Builder2;
 use Illuminate\Pipeline\Pipeline;
 
 trait QueryPipeline
@@ -41,7 +42,7 @@ trait QueryPipeline
         return $newStack;
     }
 
-    public function runPipeline(Builder $oringinalQuery, array $data, array $stackMiddleware)
+    public function runPipeline(Builder|Builder2 $oringinalQuery, array $data, array $stackMiddleware)
     {
         $newStack = $this->getFormatedMiddlewares($stackMiddleware);
         $oringinalQuery->where(function ($query) use ($data, $newStack, $oringinalQuery) {
