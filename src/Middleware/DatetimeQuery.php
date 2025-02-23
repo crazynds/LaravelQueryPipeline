@@ -15,7 +15,6 @@ class DatetimeQuery extends QueryMiddleware
                 if (isset($data['year_'.$column])) {
                     $year = $data['year_'.$column];
                     if ($dbConnection === 'pgsql') {
-                        $query->where();
                         $query->whereRaw("EXTRACT(YEAR FROM $tablename.$column) = ?", [$year], $operator);
                     } else {
                         $query->whereRaw("YEAR($tablename.$column) = ?", [$year], $operator);
