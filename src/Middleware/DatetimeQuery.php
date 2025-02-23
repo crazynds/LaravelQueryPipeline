@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Agenda\Database\Middleware;
+namespace Crazynds\QueryPipeline\Middleware;
 
 use Crazynds\QueryPipeline\Middleware\QueryMiddleware;
 
-class DatetimeQueryMiddleware extends QueryMiddleware
+class DatetimeQuery extends QueryMiddleware
 {
     public function apply($query, array $data, $params)
     {
