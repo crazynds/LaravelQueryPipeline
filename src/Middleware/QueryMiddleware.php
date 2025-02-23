@@ -5,6 +5,7 @@ namespace Crazynds\QueryPipeline\Middleware;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 abstract class QueryMiddleware
