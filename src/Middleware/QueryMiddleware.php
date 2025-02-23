@@ -61,7 +61,8 @@ abstract class QueryMiddleware
         }
     }
 
-    public function getDriverName(){
+    public function getDriverName()
+    {
         return DB::getDriverName();
-    } 
+    }
 }

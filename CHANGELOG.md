@@ -2,6 +2,20 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.1.0 - 2025-02-23
+
+### What's Changed
+
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/13
+* build(deps): bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/12
+* build(deps): bump dependabot/fetch-metadata from 2.0.0 to 2.1.0 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/14
+* build(deps): bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/15
+* build(deps): bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/16
+* build(deps): bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/crazynds/QueryPipeline-Laravel/pull/17
+* feat: added DatetimeQuery to filter datetime columns.
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.0.9...v1.1.0
+
 ## Fix queryRay - 2024-04-18
 
 ### What's Changed
@@ -85,6 +99,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -103,6 +118,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
