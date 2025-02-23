@@ -22,7 +22,7 @@ class JoinQuery extends QueryMiddleware
                 $checkNumeric = $join['checkNumeric'];
             }
 
-            //join if:
+            // join if:
 
             if (isset($checkParameters) || isset($checkNumeric)) {
                 if (isset($checkParameters) && count(array_intersect(array_keys($data), $checkParameters)) != 0) {

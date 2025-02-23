@@ -9,7 +9,7 @@ class DatetimeQueryMiddleware extends QueryMiddleware
     public function apply($query, array $data, $params)
     {
         $operator = ($data['or'] ?? false) ? 'or' : 'and';
-        $dbConnection = $this->getDriverName(); 
+        $dbConnection = $this->getDriverName();
 
         foreach ($params as $tablename => $list) {
             $tablename = $this->getTableName($tablename);
