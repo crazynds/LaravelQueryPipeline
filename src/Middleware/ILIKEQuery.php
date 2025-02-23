@@ -26,13 +26,13 @@ class ILIKEQuery extends QueryMiddleware
                     $tableCol = $key;
                 }
                 if ($or) {
-                    if (config('database.default') == 'pgsql') {
+                    if ($this->getDriverName() == 'pgsql') {
                         $query->orWhere($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
                     } else {
                         $query->orWhereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  \'%'.strtolower($value).'%\'');
                     }
                 } else {
-                    if (config('database.default') == 'pgsql') {
+                    if ($this->getDriverName() == 'pgsql') {
                         $query->where($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
                     } else {
                         $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  \'%'.strtolower($value).'%\'');

@@ -52,7 +52,7 @@ abstract class QueryMiddleware
         return $newParams;
     }
 
-    protected function getTableName($name)
+    public function getTableName($name)
     {
         if (is_subclass_of($name, Model::class)) {
             return (new $name)->getTable();
@@ -60,4 +60,8 @@ abstract class QueryMiddleware
             return $name;
         }
     }
+
+    public function getDriverName(){
+        return DB::getDriverName();
+    } 
 }
