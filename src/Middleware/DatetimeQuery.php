@@ -2,8 +2,6 @@
 
 namespace Crazynds\QueryPipeline\Middleware;
 
-use Crazynds\QueryPipeline\Middleware\QueryMiddleware;
-
 class DatetimeQuery extends QueryMiddleware
 {
     public function apply($query, array $data, $params)
