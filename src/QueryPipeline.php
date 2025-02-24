@@ -53,43 +53,12 @@ trait QueryPipeline
                     return $query;
                 });
             $wheres = $query->getQuery()->wheres;
+            $bindings = $query->getQuery()->bindings['where'];
             $query->getQuery()->wheres = [];
             $query->getQuery()->bindings['where'] = [];
-            $query->where(function ($query) use ($wheres) {
-                foreach ($wheres as $where) {
-                    $boolean = 'or';
-                    if ($where['boolean'] == $boolean) {
-                        if ($where['type'] == 'Exists') {
-                            $query->addWhereExistsQuery($where['query'], $boolean, $where['not'] ?? false);
-                        } elseif ($where['type'] == 'Nested') {
-                            $query->addNestedWhereQuery($where['query'], $boolean);
-                        } elseif ($where['type'] == 'In' || $where['type'] == 'NotIn') {
-                            $query->whereIn($where['column'], $where['values'], $boolean, $where['type'] == 'NotIn');
-                        } elseif ($where['type'] == 'raw') {
-                            $query->orWhereRaw($where['sql']);
-                        } else {
-                            $query->where($where['column'], $where['operator'], $where['value'], $boolean);
-                        }
-                    }
-                }
-            });
-            $query->where(function ($query) use ($wheres) {
-                foreach ($wheres as $where) {
-                    $boolean = 'and';
-                    if ($where['boolean'] == $boolean) {
-                        if ($where['type'] == 'Exists') {
-                            $query->addWhereExistsQuery($where['query'], $boolean, $where['not'] ?? false);
-                        } elseif ($where['type'] == 'Nested') {
-                            $query->addNestedWhereQuery($where['query'], $boolean);
-                        } elseif ($where['type'] == 'In' || $where['type'] == 'NotIn') {
-                            $query->whereIn($where['column'], $where['values'], $boolean, $where['type'] == 'NotIn');
-                        } elseif ($where['type'] == 'raw') {
-                            $query->whereRaw($where['sql']);
-                        } else {
-                            $query->where($where['column'], $where['operator'], $where['value'], $boolean);
-                        }
-                    }
-                }
+            $query->where(function ($inQuery) use ($bindings, $wheres) {
+                $inQuery->getQuery()->wheres = $wheres;
+                $inQuery->addBinding($bindings, 'where');
             });
 
             $oringinalQuery->getQuery()->bindings['order'] = $query->getQuery()->bindings['order'];
