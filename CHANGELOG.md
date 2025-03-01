@@ -2,6 +2,12 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.1.2 - 2025-03-01
+
+* Added suport to laravel framework ^12.0
+
+**Full Changelog**: https://github.com/crazynds/QueryPipeline-Laravel/compare/v1.1.1...v1.1.2
+
 ## v1.1.1 - 2025-02-24
 
 * fix: correction on passing correctly the where's to the child query
@@ -107,6 +113,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -125,6 +132,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
