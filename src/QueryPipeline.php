@@ -54,6 +54,9 @@ trait QueryPipeline
                 });
             $wheres = $query->getQuery()->wheres;
             $bindings = $query->getQuery()->bindings['where'];
+            $joins = $query->getQuery()->joins;
+            $joinsBindings = $query->getQuery()->bindings['join'];
+
             $query->getQuery()->wheres = [];
             $query->getQuery()->bindings['where'] = [];
             $query->where(function ($inQuery) use ($bindings, $wheres) {
@@ -63,6 +66,9 @@ trait QueryPipeline
 
             $oringinalQuery->getQuery()->bindings['order'] = $query->getQuery()->bindings['order'];
             $oringinalQuery->getQuery()->orders = $query->getQuery()->orders;
+
+            $oringinalQuery->getQuery()->bindings['join'] = $joinsBindings;
+            $oringinalQuery->getQuery()->joins = $joins;
         });
 
         return $oringinalQuery;
