@@ -2,6 +2,11 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.1.4 - 2025-04-07
+
+- Fix: Between query fixed
+  **Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.1.3...v1.1.4
+
 ## v1.1.3 - 2025-03-23
 
 * Fix a bug when using joins.
@@ -119,6 +124,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -137,6 +143,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
