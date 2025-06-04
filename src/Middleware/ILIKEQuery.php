@@ -29,13 +29,13 @@ class ILIKEQuery extends QueryMiddleware
                     if ($this->getDriverName() == 'pgsql') {
                         $query->orWhere($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
                     } else {
-                        $query->orWhereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  \'%'.strtolower($value).'%\'');
+                        $query->orWhereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  ?', ['%'.$username.'%']);
                     }
                 } else {
                     if ($this->getDriverName() == 'pgsql') {
                         $query->where($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
                     } else {
-                        $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  \'%'.strtolower($value).'%\'');
+                        $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  ?', ['%'.$username.'%']);
                     }
                 }
             }, array_keys($values), $values);
