@@ -2,6 +2,16 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.2.0 - 2025-06-17
+
+### What's Changed
+
+* build(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/crazynds/LaravelQueryPipeline/pull/18
+* feat: Created a StringQuery
+* impr: Improved BetweenQuery
+
+**Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.1.4...v1.2.0
+
 ## v1.1.4 - 2025-04-07
 
 - Fix: Between query fixed
@@ -125,6 +135,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -143,6 +154,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
