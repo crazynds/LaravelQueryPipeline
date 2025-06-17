@@ -46,7 +46,12 @@ class BetweenDatesQuery extends QueryMiddleware
                     $minB = Carbon::parse($data[$minB])->toIso8601String();
                     $maxB = Arr::get($data, $maxB, null);
                     if (isset($maxB)) {
-                        $maxB = Carbon::parse($maxB)->toIso8601String();
+                        if (strlen($maxB) <= 10) {
+                            $maxB = Carbon::parse($maxB)->endOfDay();
+                        } else {
+                            $maxB = Carbon::parse($maxB);
+                        }
+                        $maxB = $maxB->toIso8601String();
                     }
                 } catch (\Carbon\Exceptions\InvalidFormatException $e) {
                     continue;
