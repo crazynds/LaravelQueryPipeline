@@ -13,6 +13,7 @@ class BetweenDatesQuery extends QueryMiddleware
         foreach ($params as $name => $pairs) {
             $tablename = $this->getTableName($name);
             foreach ($pairs as $key => $pair) {
+                unset($arr,$minB,$minA,$maxA,$maxB);
                 if (gettype($key) == 'string') {
                     $arr = explode('|', $key);
                     $arr2 = explode('|', $pair);
