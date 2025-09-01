@@ -2,6 +2,16 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.2.2 - 2025-09-01
+
+### What's Changed
+
+* build(deps): bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/20
+* build(deps): bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/21
+* fix: Between dates query
+
+**Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.2.1...v1.2.2
+
 ## v1.2.1 - 2025-06-18
 
 ### What's Changed
@@ -145,6 +155,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -163,6 +174,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
