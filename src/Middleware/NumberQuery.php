@@ -34,21 +34,12 @@ class NumberQuery extends QueryMiddleware
                     }
                     if ($baseName != null && isset($data[$baseName])) {
                         $value = $data[$baseName];
-                        if ($or) {
-                            $query->orWhere(function ($query) use ($tablename, $column, $comparator, $value) {
-                                $query->where($tablename.'.'.$column, $comparator, $value);
-                                if ($comparator == '!=') {
-                                    $query->orWhereNull($tablename.'.'.$column);
-                                }
-                            });
-                        } else {
-                            $query->where(function ($query) use ($tablename, $column, $comparator, $value) {
-                                $query->where($tablename.'.'.$column, $comparator, $value);
-                                if ($comparator == '!=') {
-                                    $query->orWhereNull($tablename.'.'.$column);
-                                }
-                            });
-                        }
+                        $query->where(function ($query) use ($tablename, $column, $comparator, $value) {
+                            $query->where($tablename.'.'.$column, $comparator, $value);
+                            if ($comparator == '!=') {
+                                $query->orWhereNull($tablename.'.'.$column);
+                            }
+                        }, boolean: $or ? 'or' : 'and');
                     }
                 }
             }
