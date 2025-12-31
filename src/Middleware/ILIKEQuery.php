@@ -31,20 +31,27 @@ class ILIKEQuery extends QueryMiddleware
                     }
                 } elseif (isset($data['not_'.$column])) {
                     $value = $data['not_'.$column];
+
                     if ($or) {
-                        if ($this->getDriverName() == 'pgsql') {
-                            $query->orWhere($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
-                        } else {
-                            $query->orWhereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
-                        }
+                        $query->orWhere(function($query){
+                            if ($this->getDriverName() == 'pgsql') {
+                                $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
+                            } else {
+                                $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
+                            }
+                            $query->orWhereNull($tablename.'.'.$tableCol);
+                        });
                     } else {
-                        if ($this->getDriverName() == 'pgsql') {
-                            $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
-                        } else {
-                            $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
-                        }
+                        $query->where(function($query){
+                            if ($this->getDriverName() == 'pgsql') {
+                                $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
+                            } else {
+                                $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
+                            }
+                            $query->orWhereNull($tablename.'.'.$tableCol);
+                        });
                     }
-                    $query->orWhereNull($tablename.'.'.$tableCol);
+
                 }
             }
         }
