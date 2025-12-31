@@ -33,7 +33,7 @@ class ILIKEQuery extends QueryMiddleware
                     $value = $data['not_'.$column];
 
                     if ($or) {
-                        $query->orWhere(function($query){
+                        $query->orWhere(function ($query) use ($tablename, $tableCol, $value) {
                             if ($this->getDriverName() == 'pgsql') {
                                 $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
                             } else {
@@ -42,7 +42,7 @@ class ILIKEQuery extends QueryMiddleware
                             $query->orWhereNull($tablename.'.'.$tableCol);
                         });
                     } else {
-                        $query->where(function($query){
+                        $query->where(function ($query) use ($tablename, $tableCol, $value) {
                             if ($this->getDriverName() == 'pgsql') {
                                 $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
                             } else {
@@ -59,4 +59,3 @@ class ILIKEQuery extends QueryMiddleware
         return $query;
     }
 }
-
