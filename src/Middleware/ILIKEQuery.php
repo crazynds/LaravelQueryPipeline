@@ -16,42 +16,21 @@ class ILIKEQuery extends QueryMiddleware
 
                 if (isset($data[$column])) {
                     $value = $data[$column];
-                    if ($or) {
-                        if ($this->getDriverName() == 'pgsql') {
-                            $query->orWhere($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
-                        } else {
-                            $query->orWhereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  ?', ['%'.$value.'%']);
-                        }
+                    if ($this->getDriverName() == 'pgsql') {
+                        $query->where($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%', boolean: $or ? 'or' : 'and');
                     } else {
-                        if ($this->getDriverName() == 'pgsql') {
-                            $query->where($tablename.'.'.$tableCol, 'ILIKE', '%'.$value.'%');
-                        } else {
-                            $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  ?', ['%'.$value.'%']);
-                        }
+                        $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) LIKE  ?', ['%'.$value.'%'], boolean: $or ? 'or' : 'and');
                     }
                 } elseif (isset($data['not_'.$column])) {
                     $value = $data['not_'.$column];
-
-                    if ($or) {
-                        $query->orWhere(function ($query) use ($tablename, $tableCol, $value) {
-                            if ($this->getDriverName() == 'pgsql') {
-                                $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
-                            } else {
-                                $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
-                            }
-                            $query->orWhereNull($tablename.'.'.$tableCol);
-                        });
-                    } else {
-                        $query->where(function ($query) use ($tablename, $tableCol, $value) {
-                            if ($this->getDriverName() == 'pgsql') {
-                                $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
-                            } else {
-                                $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
-                            }
-                            $query->orWhereNull($tablename.'.'.$tableCol);
-                        });
-                    }
-
+                    $query->where(function ($query) use ($tablename, $tableCol, $value) {
+                        if ($this->getDriverName() == 'pgsql') {
+                            $query->where($tablename.'.'.$tableCol, 'NOT ILIKE', '%'.$value.'%');
+                        } else {
+                            $query->whereRaw('LOWER(`'.$tablename.'`.`'.$tableCol.'`) NOT LIKE  ?', ['%'.$value.'%']);
+                        }
+                        $query->orWhereNull($tablename.'.'.$tableCol);
+                    }, boolean: $or ? 'or' : 'and');
                 }
             }
         }
