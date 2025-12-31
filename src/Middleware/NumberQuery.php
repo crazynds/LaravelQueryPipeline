@@ -12,7 +12,7 @@ class NumberQuery extends QueryMiddleware
             foreach ($columns as $column => $comparations) {
                 if (gettype($comparations) != 'array') {
                     $column = $comparations;
-                    $comparations = ['=', '>', '<'];
+                    $comparations = ['=', '>', '<', '!='];
                 }
                 foreach ($comparations as $comparator) {
                     $baseName = null;
@@ -29,6 +29,8 @@ class NumberQuery extends QueryMiddleware
                         case '<':
                             $baseName = 'max_'.$column;
                             break;
+                        case '!=':
+                            $baseName = 'not_'.$column;
                     }
                     if ($baseName != null && isset($data[$baseName])) {
                         $value = $data[$baseName];
@@ -37,9 +39,13 @@ class NumberQuery extends QueryMiddleware
                         } else {
                             $query->where($tablename.'.'.$column, $comparator, $value);
                         }
+                        if ($comparator == '!=') {
+                            $query->orWhereNull($tablename.'.'.$column);
+                        }
                     }
                 }
             }
         }
     }
 }
+

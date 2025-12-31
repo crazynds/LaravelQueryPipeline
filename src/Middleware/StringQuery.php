@@ -17,8 +17,17 @@ class StringQuery extends QueryMiddleware
                     } else {
                         $query->where($tablename.'.'.$column, $value);
                     }
+                } elseif (isset($data['not_'.$column])) {
+                    $value = $data['not_'.$column];
+                    if ($or) {
+                        $query->orWhere($tablename.'.'.$column, '!=', $value);
+                    } else {
+                        $query->where($tablename.'.'.$column, '!=', $value);
+                    }
+                    $query->orWhereNull($tablename.'.'.$column);
                 }
             }
         }
     }
 }
+
