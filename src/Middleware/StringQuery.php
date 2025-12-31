@@ -12,11 +12,13 @@ class StringQuery extends QueryMiddleware
             foreach ($columns as $column) {
                 if (isset($data[$column])) {
                     $value = $data[$column];
-                    if ($or) {
-                        $query->orWhere($tablename.'.'.$column, $value);
-                    } else {
-                        $query->where($tablename.'.'.$column, $value);
-                    }
+                    $query->where($tablename.'.'.$column, $value, boolean: $or ? 'or' : 'and');
+                } elseif (isset($data['not_'.$column])) {
+                    $value = $data['not_'.$column];
+                    $query->where(function ($query) use ($tablename, $column, $value) {
+                        $query->where($tablename.'.'.$column, '!=', $value);
+                        $query->orWhereNull($tablename.'.'.$column);
+                    }, boolean: $or ? 'or' : 'and');
                 }
             }
         }
