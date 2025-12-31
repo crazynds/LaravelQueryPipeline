@@ -2,6 +2,20 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.2.3 - 2025-12-31
+
+### What's Changed
+
+* build(deps): bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/22
+* feat: busca exclusiva em string number e ilike by @ArturCSegat in https://github.com/crazynds/LaravelQueryPipeline/pull/24
+* build(deps): bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/23
+
+### New Contributors
+
+* @ArturCSegat made their first contribution in https://github.com/crazynds/LaravelQueryPipeline/pull/24
+
+**Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.2.2...v1.2.3
+
 ## v1.2.2 - 2025-09-01
 
 ### What's Changed
@@ -156,6 +170,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -174,6 +189,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
