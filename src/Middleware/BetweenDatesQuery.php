@@ -3,6 +3,7 @@
 namespace Crazynds\QueryPipeline\Middleware;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Arr;
 
 class BetweenDatesQuery extends QueryMiddleware
@@ -54,7 +55,7 @@ class BetweenDatesQuery extends QueryMiddleware
                         }
                         $maxB = $maxB->toIso8601String();
                     }
-                } catch (\Carbon\Exceptions\InvalidFormatException $e) {
+                } catch (InvalidFormatException $e) {
                     continue;
                 }
                 $closure = function ($query) use ($minA, $maxA, $minB, $maxB) {
