@@ -2,6 +2,15 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.3.0 - 2026-05-20
+
+### What's Changed
+
+* feat: added support to laravel 13 and 14
+* build(deps): bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/27
+
+**Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.2.4...v1.3.0
+
 ## v1.2.4 - 2026-02-08
 
 ### What's Changed
@@ -181,6 +190,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -199,6 +209,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
