@@ -2,6 +2,19 @@
 
 All notable changes to `QueryPipeline` will be documented in this file.
 
+## v1.3.1 - 2026-08-18
+
+### What's Changed
+
+* build(deps): bump actions/checkout from 6 to 7 by @dependabot[bot] in https://github.com/crazynds/LaravelQueryPipeline/pull/28
+* fix: don't rely on unserialize() warnings being catchable exceptions by @crazynds in https://github.com/crazynds/LaravelQueryPipeline/pull/29
+
+### New Contributors
+
+* @crazynds made their first contribution in https://github.com/crazynds/LaravelQueryPipeline/pull/29
+
+**Full Changelog**: https://github.com/crazynds/LaravelQueryPipeline/compare/v1.3.0...v1.3.1
+
 ## v1.3.0 - 2026-05-20
 
 ### What's Changed
@@ -191,6 +204,7 @@ $query = $this->runPipeline($query, $data, [
 
 
 
+
 ```
 ## v1.0.2 - 2022-11-10
 
@@ -209,6 +223,7 @@ $query = $this->runPipeline($query, $data, [
     ],
 
 ]);
+
 
 
 
